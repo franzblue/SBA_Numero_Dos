@@ -3,6 +3,7 @@ package jpa.dao;
 import jpa.entitymodels.Student;
 
 import javax.persistence.*;
+import java.util.List;
 
 public interface StudentDAO {
 
@@ -11,9 +12,7 @@ public interface StudentDAO {
     EntityManagerFactory emFactoryObj =
             Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
-//    getAllStudents();
-
-    public default Student getAllStudents() {
+    public default List<Student> getAllStudents() {
         EntityManager em = emFactoryObj.createEntityManager();
 
         // SELECT * FROM Student
@@ -21,7 +20,7 @@ public interface StudentDAO {
         TypedQuery<Student> query = em.createQuery(sql, Student.class);
 
         try {
-            return (Student) query.getResultStream();
+            return query.getResultList();
         } catch(NoResultException e) {
             System.out.println(e);
             return null;
@@ -43,8 +42,17 @@ public interface StudentDAO {
             return null;
         }
     }
-//    validateStudent();
-//
+
+//    public default Student validateStudent(String email, String name, String password) {
+//        Student s = this.getStudentByEmail(email);
+//        if(s.getEmail() == email && s.getName() == name && s.getPassword() == password) {
+//            System.out.println("Welcome " + name);
+//        } else if(s.getPassword() != password) {
+//            System.out.println("Wrong password.");
+//        }
+//        return s;
+//    }
+
 //    registerStudentToCourse();
 //
 //    getStudentCourses();

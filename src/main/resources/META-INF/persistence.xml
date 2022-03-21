@@ -3,12 +3,11 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="db">
-<!--        CHANGE THESE CLASSES-->
-<!--        <class>perscholas.database.entity.Movie</class>-->
-<!--        <class>perscholas.database.entity.Actor</class>-->
+        <class>jpa.entitymodels.Course</class>
+        <class>jpa.entitymodels.Student</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.connection.driver_class" value="com.mariadb.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB106Dialect"/>
+            <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
 
             <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/SBA"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>

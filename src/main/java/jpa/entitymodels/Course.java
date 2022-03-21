@@ -16,11 +16,11 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int cId;
+    private int id;
 
     @Column(name = "name")
-    private String cName;
+    private String name;
 
     @Column(name = "instructor")
-    private String cInstructorName;
+    private String instructor;
 }
