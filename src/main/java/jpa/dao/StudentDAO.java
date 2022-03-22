@@ -1,6 +1,8 @@
 package jpa.dao;
 
+import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
+import jpa.entitymodels.StudentCourses;
 
 import javax.persistence.*;
 import java.util.List;
@@ -63,7 +65,30 @@ public interface StudentDAO {
         } return b;
     }
 
-//    registerStudentToCourse();
-//
-//    getStudentCourses();
+    public default void registerStudentToCourse(StudentCourses courses) {
+        EntityManager em = emFactoryObj.createEntityManager();
+        em.getTransaction().begin();
+
+        // save the course to the database
+        em.merge(courses);
+
+        // commit the transaction
+        em.getTransaction().commit();
+        em.clear();
+    }
+
+    public default List<StudentCourses> getStudentCourses(String email) {
+        EntityManager em = emFactoryObj.createEntityManager();
+
+
+        String sql = "SELECT sc FROM StudentCourses sc WHERE sc.eMail = :sEmail";
+        TypedQuery<StudentCourses> query = em.createQuery(sql, StudentCourses.class);
+        query.setParameter("sEmail", email);
+
+        try {
+            return query.getResultList();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }

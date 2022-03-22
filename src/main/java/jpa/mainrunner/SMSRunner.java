@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
+import jpa.entitymodels.StudentCourses;
 import jpa.service.CourseService;
 import jpa.service.StudentCourseService;
 import jpa.service.StudentService;
@@ -71,10 +72,10 @@ public class SMSRunner {
         }
 
         if (currentStudent != null & currentStudent.getSPass().equals(password)) {
-            List<Course> courses = studentService.getStudentCourses(email);
+            List<StudentCourses> courses = studentService.getStudentCourses(email);
             out.println("MyClasses");
-            for (Course course : courses) {
-                out.println(course);
+            for (StudentCourses course : courses) {
+                out.printf("%-5s%-15S%-15s\n", course.getCourseID(), course.getcName(), course.getInstructor());
             }
             retValue = true;
         } else {
@@ -91,28 +92,28 @@ public class SMSRunner {
         switch (sin.nextInt()) {
             case 1:
                 List<Course> allCourses = courseService.getAllCourses();
-                List<Course> studentCourses = studentService.getStudentCourses(currentStudent.getSEmail());
+                List<StudentCourses> studentCourses = studentService.getStudentCourses(currentStudent.getSEmail());
                 allCourses.removeAll(studentCourses);
                 out.printf("%5s%15S%15s\n", "ID", "Course", "Instructor");
                 for (Course course : allCourses) {
-                    out.println(course);
+                    out.printf("%-5s%-20S%-20s\n", course.getCId(), course.getCName(), course.getCInstructor());
                 }
                 out.println();
                 out.print("Enter Course Number: ");
                 int number = sin.nextInt();
-                Course newCourse = courseService.getCourseById(number);
+                int newCourse = courseService.getCourseById(number).getCId();
 
-                if (newCourse != null) {
+                if (newCourse > 0) {
                     studentService.registerStudentToCourse(currentStudent.getSEmail(), newCourse);
                     Student temp = studentService.getStudentByEmail(currentStudent.getSEmail());
 
                     StudentCourseService scService = new StudentCourseService();
-                    List<Course> sCourses = scService.getAllStudentCourses(temp.getSEmail());
+                    List<StudentCourses> sCourses = scService.getAllStudentCourses(temp.getSEmail());
 
 
                     out.println("MyClasses");
-                    for (Course course : sCourses) {
-                        out.println(course);
+                    for (StudentCourses course : sCourses) {
+                        out.printf("%-5s%-15S%-15s\n", course.getCourseID(), course.getcName(), course.getInstructor());
                     }
                 }
                 break;

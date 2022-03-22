@@ -15,14 +15,31 @@ import javax.persistence.Table;
         @NamedQuery( name="CoursesByStudent", query="Select c from StudentCourses c where c.eMail = :email")
 })
 public class StudentCourses {
+
+    @Id
+    @Column(name = "id")
+    private int id;
+
     @Id
     @Column(name="student_email")
     private String eMail;
 
-    public StudentCourses() {}
+    @Id
+    @Column(name="course_name")
+    private String cName;
 
-    public StudentCourses(String eMail, int courseID) {
+    @Id
+    @Column(name="instructor")
+    private String instructor;
+
+    public StudentCourses() {
+    }
+
+    public StudentCourses(int id, String eMail, String cName, String instructor, int courseID) {
+        this.id = (int)Math.floor(Math.random() * 1000000);
         this.eMail = eMail;
+        this.cName = cName;
+        this.instructor = instructor;
         this.courseID = courseID;
     }
 
@@ -44,6 +61,30 @@ public class StudentCourses {
 
     public void setCourseID(int courseID) {
         this.courseID = courseID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 
     @Override
