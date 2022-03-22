@@ -1,11 +1,9 @@
 package jpa.dao;
 
 import jpa.entitymodels.Course;
+import jpa.entitymodels.Student;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 public interface CourseDAO {
@@ -25,6 +23,21 @@ public interface CourseDAO {
             return query.getResultList();
         } catch (Exception e) {
             System.out.println(e);
+            return null;
+        }
+    }
+
+    public default Course getCourseById(int id) {
+        EntityManager em = emFactoryObj.createEntityManager();
+
+        // SELECT * FROM Student WHERE id =
+        String sql = "SELECT c FROM Course c WHERE c.cId = :cId";
+        TypedQuery<Course> query = em.createQuery(sql, Course.class);
+        query.setParameter("cId", id);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
             return null;
         }
     }
