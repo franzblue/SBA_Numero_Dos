@@ -18,13 +18,13 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "email")
-    private String email;
+    private String sEmail;
 
     @Column(name = "name")
-    private String name;
+    private String sName;
 
     @Column(name = "password")
-    private String password;
+    private String sPass;
 
     // map to "Course" table
 //    private List sCourses;
@@ -34,11 +34,11 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return email.equals(student.email) && name.equals(student.name) && password.equals(student.password);
+        return sEmail.equals(student.sEmail) && sName.equals(student.sName) && sPass.equals(student.sPass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, name, password);
+        return Objects.hash(sEmail, sName, sPass);
     }
 }

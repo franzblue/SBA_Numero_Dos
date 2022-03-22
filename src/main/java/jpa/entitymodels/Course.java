@@ -16,11 +16,20 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private int cId;
 
     @Column(name = "name")
-    private String name;
+    private String cName;
 
     @Column(name = "instructor")
-    private String instructor;
+    private String cInstructor;
+
+    public Course() {
+    }
+
+    public Course(int id, String name, String instructor) {
+        this.cId = id;
+        this.cName = name;
+        this.cInstructor = instructor;
+    }
 }
